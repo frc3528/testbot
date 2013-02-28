@@ -78,14 +78,14 @@ public class Shooter extends Subsystem {
     }
 
     public void decreasePower() {      
-        if(power <= -1.0) {
+        if(power <= 0.0) {
             return;
         }
         
         setPower(Utils.roundstrip(power - 0.1));
     }
 
-    public void stop() throws CANTimeoutException {
+    public void stop() {
         setPower(0);
         System.out.println("STOPPING");
     }

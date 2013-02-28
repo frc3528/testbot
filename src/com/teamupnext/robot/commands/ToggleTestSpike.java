@@ -4,36 +4,41 @@
  */
 package com.teamupnext.robot.commands;
 
-import com.teamupnext.robot.RobotMap;
-
 /**
  *
- * @author Team Up Next
+ * @author TeamUpNextControls
  */
-public class PullHolder extends CommandBase {
+public class ToggleTestSpike extends CommandBase {
     
-    public PullHolder() {
-        requires(feeder);
+    private static boolean isForward = false;
+    
+    public ToggleTestSpike() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        setTimeout(RobotMap.HOLDER_PULL_TIMEOUT);
+        /*if(isForward) {
+            isForward = false;
+            testSubsystem.setForward();
+        } else {
+            isForward = true;
+            testSubsystem.setReverse();
+        }*/
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        feeder.pullHolder();
+        
     }
-
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        feeder.zeroSolenoids();
     }
 
     // Called when another command which requires one or more of the same

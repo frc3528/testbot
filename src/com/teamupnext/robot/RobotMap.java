@@ -34,10 +34,8 @@ public class RobotMap {
     //End Joystick Constants
     
     //Drive Train Constants
-    public static final int DRIVE_LEFT_FRONT_CAN = 4;
-    public static final int DRIVE_LEFT_BACK_CAN = 5;
-    public static final int DRIVE_RIGHT_FRONT_CAN = 2;
-    public static final int DRIVE_RIGHT_BACK_CAN = 3;
+    public static final int DRIVE_LEFT_PWM = 3;
+    public static final int DRIVE_RIGHT_PWM = 2;
     public static final int SHIFT_DOWN_SOLENOID_CHANNEL = 7;
     public static final int SHIFT_UP_SOLENOID_CHANNEL = 8;
     public static final double SHIFT_TIMEOUT_TIME = .25;
@@ -61,49 +59,34 @@ public class RobotMap {
     public static final int FEEDER_PULL_SOLENOID_CHANNEL = 6;
     public static final int HOLDER_PUSH_SOLENOID_CHANNEL = 3;
     public static final int HOLDER_PULL_SOLENOID_CHANNEL = 4;
-    public static final double FEEDER_PUSH_TIMEOUT = .25;
-    public static final double FEEDER_PULL_TIMEOUT = .05;
+    public static final double FEEDER_PUSH_TIMEOUT = .01;
+    public static final double FEEDER_PULL_TIMEOUT = .01;
     public static final double HOLDER_PUSH_TIMEOUT = .05;
     public static final double HOLDER_PULL_TIMEOUT = .125;
     //End Feeder Constants
     
-    //PickerUpper Constants
-    public static final int ARM_UP_SOLENOID_CHANNEL = 2;
-    public static final int ARM_DOWN_SOLENOID_CHANNEL = 1;
-    public static final double ARM_UP_TIMEOUT = 1;
-    public static final double ARM_DOWN_TIMEOUT = 1;
-    public static final int SWEEPER_PWM_CHANNEL = 2;
-    public static double SWEEPER_SPEED = 1;
-    public static double CLAMP_TIMEOUT = .3;
-    //End PickerUpper Constants
     
     //Shooter Constants
-    public static final int SHOOTER_CAN = 6;
-    public static final int SHOOTER_PWM_CHANNEL = 3;
+    public static final int SHOOTER_PWM_CHANNEL = 1;
     public static final double SHOOTING_POWER_DEFAULT = .75;
-    public static final double SHOOTER_FROM_STOP_TIMEOUT = 2;
+    
+    public static final double SHOOTER_HOP_SPEED = 1;
+    
+    //--Little Hop
     public static final double SHOOTER_LITTLE_HOP_TIMEOUT = .5;
-    public static final double SHOOTER_PREHOP_TIMEOUT = .5;
-    public static final double SHOOTER_HOP_SPEED = 1.0;
+    //--End Little Hop
+    
+    //--Big Hop
+    public static final double SHOOTER_PREHOP_TIMEOUT = .25;
     public static final double SHOOTER_PREHOP_SPEED = .5;
+    public static final double SHOOTER_FROM_STOP_TIMEOUT = 1.6;
+    //--End Big Hop
+    
     //End Shooter Constants
     
     //Compressor Constants
     public static final int COMPRESSOR_RELAY_CHANNEL = 1;
     public static final int PRESSURE_SWITCH_DIO_CHANNEL = 1;
     //End Compressor Constants
-    
-    //TableTilter Constants
-    public static final int TABLE_GYRO_CHANNEL = 2;
-    public static final int LEAD_SCREW_RELAY_CHANNEL = 3;
-    public static final int TABLE_LOW_LIMIT_CHANNEL = 3;
-    public static final int TABLE_HIGH_LIMIT_CHANNEL = 5;
-    public static final double TABLE_GYRO_SENSITIVITY = .007;
-    //End TableTilter Constants    
-    
-    //Auto Constants
-    public static final double AUTO_REVERSE_TIME = .86;
-    public static final double AUTO_DRIVE_POWER = 0.75;
-    public static final double AUTO_FORWARD_TIME = 2;
-    //End Auto Constants
+
 }

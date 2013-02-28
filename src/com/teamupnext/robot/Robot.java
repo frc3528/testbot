@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import com.teamupnext.robot.commands.CommandBase;
+import com.teamupnext.robot.commands.PrintDisabledInfo;
+import com.teamupnext.robot.commands.PrintInfo;
+import com.teamupnext.robot.commands.StopShooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,7 +27,9 @@ import com.teamupnext.robot.commands.CommandBase;
 public class Robot extends IterativeRobot {
 
     //Command autonomousCommand;
-
+    
+    PrintDisabledInfo displayInfo = new PrintDisabledInfo();
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -47,6 +52,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        new PrintInfo().start();
     }
 
     public void teleopInit() {
@@ -55,6 +61,8 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         //autonomousCommand.cancel();
+        
+        new StopShooter().start();
     }
 
     /**
@@ -62,6 +70,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        new PrintInfo().start();
     }
     
     /**
@@ -70,4 +79,9 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     }
+    
+    public void disabledInit() {
+        displayInfo.start();
+    }
+    
 }

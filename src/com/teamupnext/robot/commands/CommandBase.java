@@ -1,11 +1,14 @@
 package com.teamupnext.robot.commands;
 
+import com.teamupnext.robot.OI;
+import com.teamupnext.robot.RobotMap;
+import com.teamupnext.robot.subsystems.DriveTrain;
+import com.teamupnext.robot.subsystems.Feeder;
+import com.teamupnext.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.can.CANTimeoutException;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.teamupnext.robot.OI;
-import com.teamupnext.robot.subsystems.Feeder;
-import com.teamupnext.robot.subsystems.Shooter;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -18,7 +21,9 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     // Create a single static instance of all of your subsystems
     public static Feeder feeder = new Feeder();
+   // public static TestSubsystem testSubsystem = new TestSubsystem();
     public static Shooter shooter;
+    public static DriveTrain driveTrain;
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
@@ -30,12 +35,17 @@ public abstract class CommandBase extends Command {
         
         try {
             shooter  = new Shooter();
+            driveTrain = new DriveTrain();
         } catch (CANTimeoutException ex) {
             System.out.println(ex.getMessage());
         }
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(feeder);
+        
+        // create and start the compressor
+        Compressor compressor = new Compressor(RobotMap.PRESSURE_SWITCH_DIO_CHANNEL, RobotMap.COMPRESSOR_RELAY_CHANNEL);
+        compressor.start();
     }
 
     public CommandBase(String name) {

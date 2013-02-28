@@ -13,9 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Feed extends CommandGroup {
     
     public Feed() {
-        addSequential(new PullHolder());
         addSequential(new PushFeeder());
-        addSequential(new PushHolder());
         addSequential(new PullFeeder());
     }
 }

@@ -1,44 +1,50 @@
 
 package com.teamupnext.robot;
 
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
+import com.teamupnext.robot.commands.BigHopShooter;
+import com.teamupnext.robot.commands.DecreaseShooterPower;
+import com.teamupnext.robot.commands.Fire;
+import com.teamupnext.robot.commands.IncreaseShooterPower;
+import com.teamupnext.robot.commands.RapidFire;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
+        
+    Joystick drivingStick;
     
-    // Another type of button you can create is a DigitalIOButton, which is
-    // a button or switch hooked up to the cypress module. These are useful if
-    // you want to build a customized operator interface.
-    // Button button = new DigitalIOButton(1);
+    public OI() {
+        drivingStick = new Joystick(RobotMap.DRIVING_JOYSTICK_PORT);
     
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
+        //JoystickButton toggleSpike = new JoystickButton(drivingStick, RobotMap.A_BUTTON);
+        //toggleSpike.whenPressed(new ToggleTestSpike());
+        
+        //Spin up Shooter
+        JoystickButton spinUpShooter = new JoystickButton(drivingStick, RobotMap.B_BUTTON);
+        spinUpShooter.whenPressed(new BigHopShooter());
+        
+        //Change shooter speed
+        JoystickButton shooterIncrease = new JoystickButton(drivingStick, RobotMap.START_BUTTON);
+        shooterIncrease.whenPressed(new IncreaseShooterPower());
+        JoystickButton shooterDecrease = new JoystickButton(drivingStick, RobotMap.BACK_BUTTON);
+        shooterDecrease.whenPressed(new DecreaseShooterPower());
+        
+        //Fire
+        JoystickButton fireShooter = new JoystickButton(drivingStick, RobotMap.X_BUTTON);
+        fireShooter.whenPressed(new Fire());
+        
+        //RapidFire
+        JoystickButton rapidFire = new JoystickButton(drivingStick, RobotMap.Y_BUTTON);
+        rapidFire.whenPressed(new RapidFire());
+        
+    }
     
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-    
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-    
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-    
-    // Start the command when the button is released  and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
+    public Joystick getDrivingJoystick() {
+        return drivingStick;
+    }
 }
 
