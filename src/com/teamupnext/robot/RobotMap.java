@@ -59,7 +59,7 @@ public class RobotMap {
     public static final int FEEDER_PULL_SOLENOID_CHANNEL = 6;
     public static final int HOLDER_PUSH_SOLENOID_CHANNEL = 3;
     public static final int HOLDER_PULL_SOLENOID_CHANNEL = 4;
-    public static final double FEEDER_PUSH_TIMEOUT = .01;
+    public static final double FEEDER_PUSH_TIMEOUT = .05;  // test test test
     public static final double FEEDER_PULL_TIMEOUT = .01;
     public static final double HOLDER_PUSH_TIMEOUT = .05;
     public static final double HOLDER_PULL_TIMEOUT = .125;
@@ -67,6 +67,10 @@ public class RobotMap {
     
     
     //Shooter Constants
+    public static final double SHOOTER_P = 0.0;
+    public static final double SHOOTER_I = 0.0;
+    public static final double SHOOTER_D = 0.0;
+    
     public static final int SHOOTER_PWM_CHANNEL = 1;
     public static final double SHOOTING_POWER_DEFAULT = .75;
     

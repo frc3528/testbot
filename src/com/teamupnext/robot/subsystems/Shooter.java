@@ -4,12 +4,16 @@
  */
 package com.teamupnext.robot.subsystems;
 
+import com.teamupnext.helperPackage.HomemadeEncoder;
 import com.teamupnext.robot.RobotMap;
 import com.teamupnext.robot.Utils;
 import com.teamupnext.robot.commands.RunShooter;
 import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.GearTooth;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.can.CANTimeoutException;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,16 +26,28 @@ public class Shooter extends Subsystem {
 
     //speed controller
     private Talon shootingMotor;
+    private PIDController shootingPID;
+    private HomemadeEncoder shooterEncoder;
     private DriverStationLCD lcd;
     private double power = 0;
+    private double powerChange = 0.05;
     
     public Shooter() throws CANTimeoutException {
         super();
         
         shootingMotor = new Talon(RobotMap.SHOOTER_PWM_CHANNEL);//CANJaguar(RobotMap.SHOOTER_CAN);
-        //shootingMotor.setSafetyEnabled(true);
-        //shootingMotor.setExpiration(RobotMap.DEFAULT_MOTOR_SAFETY_EXPIRATION);
-        //power = RobotMap.SHOOTING_POWER_DEFAULT;
+        shootingPID = new PIDController(RobotMap.SHOOTER_P, RobotMap.SHOOTER_I, RobotMap.SHOOTER_D, shooterEncoder, shootingMotor);
+        shooterEncoder = new HomemadeEncoder(7, 1);
+        shooterEncoder.start();
+        shooterEncoder.reset();
+    }
+    
+    public double getShooterRPS() {
+        return shooterEncoder.getRPS();
+    }
+    
+    public int getShooterEncoderCount() {
+        return shooterEncoder.getCount();
     }
     
     public void initDefaultCommand() {
@@ -41,19 +57,13 @@ public class Shooter extends Subsystem {
     
     public void setPower(double power){
         this.power = power;
-        //shootingMotor.setX(power);
     }
     
     public double getPower() {
         return power;
     }
     
-    public void runShooter() { 
-        /*if(power == shootingMotor.getX()) {
-            System.out.println("power on shooter: " + shootingMotor.getX());
-            return;
-        }*/
-        
+    public void runShooter() {        
         shootingMotor.set(power);
     }
     
@@ -74,7 +84,7 @@ public class Shooter extends Subsystem {
             return;
         }
 
-        setPower(Utils.roundstrip(power + 0.1));
+        setPower(Utils.roundstrip(power + powerChange));
     }
 
     public void decreasePower() {      
@@ -82,7 +92,7 @@ public class Shooter extends Subsystem {
             return;
         }
         
-        setPower(Utils.roundstrip(power - 0.1));
+        setPower(Utils.roundstrip(power - powerChange));
     }
 
     public void stop() {

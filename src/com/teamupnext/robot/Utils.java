@@ -40,7 +40,7 @@ public class Utils {
     }
 
     public static double roundstrip(double myNum) {    
-        int precision = 10; //keep 1 digit
+        int precision = 100; //keep 2 digits
         myNum = Math.floor(myNum * precision + .5) / precision;
         return myNum;        
     }

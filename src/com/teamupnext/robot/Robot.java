@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
 
     //Command autonomousCommand;
     
-    PrintDisabledInfo displayInfo = new PrintDisabledInfo();
+    PrintDisabledInfo disabledInfo;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -40,11 +40,14 @@ public class Robot extends IterativeRobot {
 
         // Initialize all subsystems
         CommandBase.init();
+        
+        disabledInfo = new PrintDisabledInfo();
     }
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
         //autonomousCommand.start();
+        disabledInfo.cancel();
     }
 
     /**
@@ -61,7 +64,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         //autonomousCommand.cancel();
-        
+        disabledInfo.cancel();
         new StopShooter().start();
     }
 
@@ -81,7 +84,7 @@ public class Robot extends IterativeRobot {
     }
     
     public void disabledInit() {
-        displayInfo.start();
+        disabledInfo.start();
     }
     
 }

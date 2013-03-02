@@ -9,7 +9,6 @@ import com.teamupnext.robot.Utils;
 import com.teamupnext.robot.commands.DriveWithJoystick;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.can.CANTimeoutException;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
