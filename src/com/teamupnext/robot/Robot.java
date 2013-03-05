@@ -16,6 +16,7 @@ import com.teamupnext.robot.commands.CommandBase;
 import com.teamupnext.robot.commands.PrintDisabledInfo;
 import com.teamupnext.robot.commands.PrintInfo;
 import com.teamupnext.robot.commands.StopShooter;
+import com.teamupnext.robot.commands.TestAuto;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,7 +27,7 @@ import com.teamupnext.robot.commands.StopShooter;
  */
 public class Robot extends IterativeRobot {
 
-    //Command autonomousCommand;
+    Command autonomousCommand = new TestAuto();
     
     PrintDisabledInfo disabledInfo;
     
@@ -46,7 +47,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        //autonomousCommand.start();
+        autonomousCommand.start();
         disabledInfo.cancel();
     }
 
@@ -63,8 +64,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        //autonomousCommand.cancel();
-        disabledInfo.cancel();
+        autonomousCommand.cancel();
         new StopShooter().start();
     }
 
@@ -84,7 +84,6 @@ public class Robot extends IterativeRobot {
     }
     
     public void disabledInit() {
-        disabledInfo.start();
     }
     
 }

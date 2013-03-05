@@ -36,7 +36,7 @@ public class Shooter extends Subsystem {
         super();
         
         shootingMotor = new Talon(RobotMap.SHOOTER_PWM_CHANNEL);//CANJaguar(RobotMap.SHOOTER_CAN);
-        shootingPID = new PIDController(RobotMap.SHOOTER_P, RobotMap.SHOOTER_I, RobotMap.SHOOTER_D, shooterEncoder, shootingMotor);
+        shootingPID = new PIDController(RobotMap.SHOOTER_KP, RobotMap.SHOOTER_KI, RobotMap.SHOOTER_KD, shooterEncoder, shootingMotor);
         shooterEncoder = new HomemadeEncoder(7, 1);
         shooterEncoder.start();
         shooterEncoder.reset();

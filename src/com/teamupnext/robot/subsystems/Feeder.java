@@ -37,6 +37,7 @@ public class Feeder extends Subsystem implements PneumaticDevice {
     }
    
    public void pushFeeder() {
+       System.out.println("feeding");
        feeder.push();
    } 
    

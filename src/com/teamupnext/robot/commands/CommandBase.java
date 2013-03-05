@@ -4,6 +4,7 @@ import com.teamupnext.robot.OI;
 import com.teamupnext.robot.RobotMap;
 import com.teamupnext.robot.subsystems.DriveTrain;
 import com.teamupnext.robot.subsystems.Feeder;
+import com.teamupnext.robot.subsystems.PIDShooter;
 import com.teamupnext.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
@@ -22,8 +23,7 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     // Create a single static instance of all of your subsystems
     public static Feeder feeder = new Feeder();
-   // public static TestSubsystem testSubsystem = new TestSubsystem();
-    public static Shooter shooter;
+    public static PIDShooter shooter;
     public static DriveTrain driveTrain;
 
     public static void init() {
@@ -35,7 +35,7 @@ public abstract class CommandBase extends Command {
         oi = new OI();
         
         try {
-            shooter  = new Shooter();
+            shooter  = new PIDShooter();
             driveTrain = new DriveTrain();
         } catch (CANTimeoutException ex) {
             System.out.println(ex.getMessage());

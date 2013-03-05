@@ -4,37 +4,35 @@
  */
 package com.teamupnext.robot.commands;
 
-import com.teamupnext.robot.RobotMap;
-import com.teamupnext.robot.commands.CommandBase;
-
 /**
  *
- * @author jousley
+ * @author TeamUpNextControls
  */
-public class PullFeeder extends CommandBase {
+public class SetShooterSetpoint extends CommandBase {
     
-    public PullFeeder() {
-        requires(feeder);
+    private int setpoint;
+    
+    public SetShooterSetpoint(int setpoint) {
+        this.setpoint = setpoint;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        setTimeout(RobotMap.FEEDER_PULL_TIMEOUT);
-        feeder.pullFeeder();
+        shooter.startShooter();
+        shooter.setSpeed(setpoint);
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {        
+    protected void execute() {
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        feeder.zeroSolenoids();
     }
 
     // Called when another command which requires one or more of the same

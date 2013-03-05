@@ -28,8 +28,14 @@ public class PrintInfo extends CommandBase {
         //Utils.printToDriverStation("leftEncoder: " + driveTrain.getLeftEncoder(), DriverStationLCD.Line.kUser2);
         //Utils.printToDriverStation("rightEncoder: " + driveTrain.getRightEncoder(), DriverStationLCD.Line.kUser3);
         //Utils.printToDriverStation("Shooter current: " + shooter.getCurrent(), DriverStationLCD.Line.kUser4);
-        Utils.printToDriverStation("Shooter Count: " + shooter.getShooterEncoderCount(), DriverStationLCD.Line.kUser5);
-        Utils.printToDriverStation("Shooter RPS: " + shooter.getShooterRPS(), DriverStationLCD.Line.kUser6);
+        Utils.printToDriverStation("Shooter Count: " + shooter.getShooterEncoderCount(), DriverStationLCD.Line.kUser3);
+        
+        int setpoint = shooter.getPIDSetpoint();
+        double rps = shooter.getRPS();
+        
+        Utils.printToDriverStation("Setpoint: " + setpoint, DriverStationLCD.Line.kUser4);
+        Utils.printToDriverStation("Shooter RPS: " + rps, DriverStationLCD.Line.kUser5);
+        Utils.printToDriverStation("Dif: " + (rps - setpoint), DriverStationLCD.Line.kUser6);
     }
 
     // Make this return true when this Command no longer needs to run execute()

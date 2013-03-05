@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Fire extends CommandGroup {
     
     public Fire() {
+        addSequential(new WaitTillShooterOnTarget());
         addSequential(new Feed());
-        addSequential(new LittleHopShooter());
+        //addSequential(new LittleHopShooter());
     }
 }

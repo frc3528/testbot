@@ -1,11 +1,11 @@
 
 package com.teamupnext.robot;
 
-import com.teamupnext.robot.commands.BigHopShooter;
 import com.teamupnext.robot.commands.DecreaseShooterPower;
 import com.teamupnext.robot.commands.Fire;
 import com.teamupnext.robot.commands.IncreaseShooterPower;
 import com.teamupnext.robot.commands.RapidFire;
+import com.teamupnext.robot.commands.TogglePIDShooter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -25,7 +25,7 @@ public class OI {
         
         //Spin up Shooter
         JoystickButton spinUpShooter = new JoystickButton(drivingStick, RobotMap.B_BUTTON);
-        spinUpShooter.whenPressed(new BigHopShooter());
+        spinUpShooter.whenPressed(new TogglePIDShooter());
         
         //Change shooter speed
         JoystickButton shooterIncrease = new JoystickButton(drivingStick, RobotMap.START_BUTTON);
