@@ -25,6 +25,7 @@ public class Targeter extends Subsystem {
     
     public Targeter(String address) {
         camera = AxisCamera.getInstance(address);
+        camera.writeResolution(AxisCamera.ResolutionT.k320x240);
     }
     
     public void initDefaultCommand() {

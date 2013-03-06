@@ -12,6 +12,10 @@ public class TogglePIDShooter extends CommandBase {
     
     private boolean isOn = false;
     
+    private int off = 0;
+    private int pyramidSetpoint = 55;
+    private int feederSetpoint = 65;
+    
     public TogglePIDShooter() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

@@ -3,6 +3,7 @@ package com.teamupnext.robot.subsystems;
 import com.teamupnext.helperPackage.HomemadeEncoder;
 import com.teamupnext.robot.RobotMap;
 import com.teamupnext.robot.Utils;
+import com.teamupnext.robot.commands.MonitorShooterEncoder;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
@@ -15,27 +16,29 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class PIDShooter extends Subsystem {
 
-    private Talon shootingMotor;
-    private PIDController shootingPID;
-    private HomemadeEncoder shooterEncoder;
+    private Talon motor;
+    private PIDController PIDController;
+    private HomemadeEncoder encoder;
     private DriverStationLCD lcd;
-    private double power = 0;
+    private MonitorShooterEncoder monitor;
     private double powerChange = 0.05;
     
-    private int setSpeed = 0;
-    private int speedChange = 5;
+    private int setpoint = 0;
+    private int speedChange = 2;
     
     public PIDShooter() throws CANTimeoutException {
         super();
         
-        shooterEncoder = new HomemadeEncoder(7, 1);
-        shootingMotor = new Talon(RobotMap.SHOOTER_PWM_CHANNEL);
-        shootingPID = new PIDController(RobotMap.SHOOTER_KP, RobotMap.SHOOTER_KI, RobotMap.SHOOTER_KD, RobotMap.SHOOTER_KF, shooterEncoder, shootingMotor);
-        shootingPID.setOutputRange(0, 1);
-        shootingPID.setInputRange(0, 88);
-        shootingPID.setPercentTolerance(1.0);
-        shooterEncoder.start();
-        shooterEncoder.reset();
+        monitor = new MonitorShooterEncoder();
+        
+        encoder = new HomemadeEncoder(7, 1);
+        motor = new Talon(RobotMap.SHOOTER_PWM_CHANNEL);
+        PIDController = new PIDController(RobotMap.SHOOTER_KP, RobotMap.SHOOTER_KI, RobotMap.SHOOTER_KD, RobotMap.SHOOTER_KF, encoder, motor);
+        PIDController.setOutputRange(0, 1);
+        PIDController.setInputRange(0, 88);
+        PIDController.setPercentTolerance(1.0);
+        encoder.start();
+        encoder.reset();
     }
     
     public void initDefaultCommand() {
@@ -43,77 +46,71 @@ public class PIDShooter extends Subsystem {
         //setDefaultCommand(new RunShooter());
     }
     
+    public void setPID(double KP, double KI, double KD, double KF) {
+        PIDController.setPID(KP, KI, KD, KF);
+    }
+    
     public void setSpeed(int rps) {
-        this.setSpeed = rps;
-        shootingPID.setSetpoint(setSpeed);
+        this.setpoint = rps;
+        PIDController.setSetpoint(setpoint);
     }
     
-    public void setPower(double power){
-        this.power = power;
+    public double getOutputPower() {
+        return Utils.roundstrip(motor.get());
     }
     
-    public double getPower() {
-        return Utils.roundstrip(shootingMotor.get());
-    }
-    
-    public double getSpeed() {
-        return setSpeed;
+    public double getSetpoint() {
+        return setpoint;
     }
     
     public boolean isOnPIDSetpoint() {
-        return shootingPID.onTarget();
+        return PIDController.onTarget();
     }
     
     public double getRPS() {
-        return shooterEncoder.getRPS();
+        return encoder.getRPS();
     }
     
     public int getPIDSetpoint() {
-        return setSpeed;
+        return setpoint;
     }
     
     public int getShooterEncoderCount() {
-        return shooterEncoder.getCount();
+        return encoder.getCount();
+    }
+    
+    public int getEncoderCount() {
+        return encoder.getCount();
     }
     
     public void startShooter() {
-        shootingPID.enable();
+        monitor.start();
+        encoder.reset();
+        PIDController.enable();
     }
     
     public void stopShooter() {
-        shootingPID.disable();
+        monitor.cancel();
+        PIDController.disable();
     }
     
-    /*public void runShooter() {        
-        shootingMotor.set(power);
-    }*/
-    
     public void increase() {
-        if (power < 1.0) {
-            //setPower(Utils.roundstrip(power + powerChange));
-        }
-
-        if (setSpeed < 88) {
-           setSpeed(setSpeed + speedChange);
+        if (setpoint < 88) {
+           setSpeed(setpoint + speedChange);
         }
     }
 
     public void decrease() {      
-        if(power > 0.0) {
-           //setPower(Utils.roundstrip(power - powerChange));
-        }
-        
-        if(setSpeed > 0) {
-            if(setSpeed <= powerChange) {
+        if(setpoint > 0) {
+            if(setpoint <= powerChange) {
                 setSpeed(0);
             } else {
-                setSpeed(setSpeed - speedChange);
+                setSpeed(setpoint - speedChange);
             }
         }
     }
 
     public void stop() {
-        setPower(0);
         setSpeed(0);
     }
 }
