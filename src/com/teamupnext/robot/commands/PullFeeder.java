@@ -4,9 +4,6 @@
  */
 package com.teamupnext.robot.commands;
 
-import com.teamupnext.robot.RobotMap;
-import com.teamupnext.robot.commands.CommandBase;
-
 /**
  *
  * @author jousley
@@ -19,7 +16,7 @@ public class PullFeeder extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        setTimeout(RobotMap.FEEDER_PULL_TIMEOUT);
+        setTimeout(feeder.getPullTime());
         feeder.pullFeeder();
     }
 

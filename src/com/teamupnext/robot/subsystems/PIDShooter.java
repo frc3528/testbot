@@ -22,7 +22,7 @@ public class PIDShooter extends Subsystem {
     private DriverStationLCD lcd;
     private MonitorShooterEncoder monitor;
     private double powerChange = 0.05;
-    
+    private boolean isFailed = false;
     private int setpoint = 0;
     private int speedChange = 2;
     
@@ -46,6 +46,17 @@ public class PIDShooter extends Subsystem {
         //setDefaultCommand(new RunShooter());
     }
     
+    public void setToDefault()
+    {
+        isFailed = false;
+    }
+    
+    public void setEncoderFailMode(boolean failed)
+    {
+        setPID(0.0, 0.0, 0.0, RobotMap.SHOOTER_KF);
+        isFailed = true;
+    }
+    
     public void setPID(double KP, double KI, double KD, double KF) {
         PIDController.setPID(KP, KI, KD, KF);
     }
@@ -64,7 +75,7 @@ public class PIDShooter extends Subsystem {
     }
     
     public boolean isOnPIDSetpoint() {
-        return PIDController.onTarget();
+        return isFailed || PIDController.onTarget();
     }
     
     public double getRPS() {

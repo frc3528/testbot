@@ -4,44 +4,30 @@
  */
 package com.teamupnext.robot.commands;
 
-import com.teamupnext.robot.RobotMap;
-
 /**
  *
  * @author TeamUpNextControls
  */
-public class MonitorShooterEncoder extends CommandBase {
+public class SetToDefault extends CommandBase {
     
-    private boolean encoderOff = false;
-    
-    public MonitorShooterEncoder() {
+    public SetToDefault() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        shooter.setToDefault();
+        feeder.setToDefaultPosition();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        
-        if(timeSinceInitialized() < .5) {
-            return;
-        }
-        
-        if(!isSpinning() && isPowered()) {
-            //Encoder isn't working
-            //shooter.setEncoderFailMode(true);//.setPID(0.0, 0.0, 0.0, RobotMap.SHOOTER_KF);
-            //feeder.setPullTime(0.5);
-            //encoderOff = true;
-            System.out.println("Turned off encoder control");
-        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return encoderOff;
+        return true;
     }
 
     // Called once after isFinished returns true
@@ -51,13 +37,5 @@ public class MonitorShooterEncoder extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    }
-    
-    private boolean isSpinning() {
-        return shooter.getRPS() > 0;
-    }
-    
-    private boolean isPowered() {
-        return shooter.getOutputPower() >= 0.33;
     }
 }

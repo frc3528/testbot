@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import com.teamupnext.robot.commands.CommandBase;
 import com.teamupnext.robot.commands.PrintDisabledInfo;
 import com.teamupnext.robot.commands.PrintInfo;
+import com.teamupnext.robot.commands.SetToDefault;
 import com.teamupnext.robot.commands.StopShooter;
 import com.teamupnext.robot.commands.TestAuto;
 
@@ -84,6 +85,7 @@ public class Robot extends IterativeRobot {
     }
     
     public void disabledInit() {
+        new SetToDefault().start();
     }
     
 }
