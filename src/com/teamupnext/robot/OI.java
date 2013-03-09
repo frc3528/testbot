@@ -4,6 +4,7 @@ package com.teamupnext.robot;
 import com.teamupnext.robot.commands.DecreaseShooterPower;
 import com.teamupnext.robot.commands.Fire;
 import com.teamupnext.robot.commands.IncreaseShooterPower;
+import com.teamupnext.robot.commands.PIDShooterEncoderFailToggle;
 import com.teamupnext.robot.commands.RapidFire;
 import com.teamupnext.robot.commands.TogglePIDShooter;
 import edu.wpi.first.wpilibj.Joystick;
@@ -40,6 +41,10 @@ public class OI {
         //RapidFire
         JoystickButton rapidFire = new JoystickButton(drivingStick, RobotMap.Y_BUTTON);
         rapidFire.whenPressed(new RapidFire());
+        
+        //Toggle Fail mode
+        JoystickButton failMode = new JoystickButton(drivingStick, RobotMap.A_BUTTON);
+        failMode.whenPressed(new PIDShooterEncoderFailToggle());
         
     }
     

@@ -46,15 +46,20 @@ public class PIDShooter extends Subsystem {
         //setDefaultCommand(new RunShooter());
     }
     
-    public void setToDefault()
-    {
+    public void setToDefault() {
         isFailed = false;
     }
     
-    public void setEncoderFailMode(boolean failed)
-    {
-        setPID(0.0, 0.0, 0.0, RobotMap.SHOOTER_KF);
-        isFailed = true;
+    public void setEncoderFailMode(boolean failed) {
+        
+        if(failed) {
+            setPID(0.0, 0.0, 0.0, RobotMap.SHOOTER_KF);
+        } else {
+            setPID(RobotMap.SHOOTER_KP, RobotMap.SHOOTER_KI, 
+                    RobotMap.SHOOTER_KD, RobotMap.SHOOTER_KF);
+        }
+        
+        isFailed = failed;
     }
     
     public void setPID(double KP, double KI, double KD, double KF) {
@@ -95,13 +100,13 @@ public class PIDShooter extends Subsystem {
     }
     
     public void startShooter() {
-        monitor.start();
+        //monitor.start();
         encoder.reset();
         PIDController.enable();
     }
     
     public void stopShooter() {
-        monitor.cancel();
+        //monitor.cancel();
         PIDController.disable();
     }
     

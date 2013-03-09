@@ -1,17 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.teamupnext.robot.commands;
 
 /**
  *
- * @author Team Up Next
+ * @author TeamUpNextControls
  */
-public class RunShooter extends CommandBase {
+public class PIDShooterEncoderFailToggle extends CommandBase {
     
-    public RunShooter() {
-        requires(shooter);
+    private static boolean isFailed = false;
+    
+    public PIDShooterEncoderFailToggle() {
+        // Use requires() here to declare subsystem dependencies
     }
 
     // Called just before this Command runs the first time
@@ -20,12 +18,15 @@ public class RunShooter extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //shooter.runShooter();
+        isFailed = !isFailed;
+        
+        shooter.setEncoderFailMode(isFailed);
+        feeder.setUseExtendedPullTime(isFailed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

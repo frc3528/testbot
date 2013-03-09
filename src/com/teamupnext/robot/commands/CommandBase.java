@@ -34,6 +34,7 @@ public abstract class CommandBase extends Command {
         
         try {
             shooter  = new PIDShooter();
+            shooter.startShooter();
             driveTrain = new DriveTrain();
         } catch (CANTimeoutException ex) {
             System.out.println(ex.getMessage());

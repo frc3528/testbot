@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.teamupnext.robot.commands;
 
 /**
@@ -10,30 +6,21 @@ package com.teamupnext.robot.commands;
  */
 public class TogglePIDShooter extends CommandBase {
     
-    private boolean isOn = false;
-    
-    private int off = 0;
-    private int pyramidSetpoint = 55;
-    private int feederSetpoint = 65;
+    private static final int Setpoints[] = new int[] {0, 56, 58, 66, 68};
+    private static int counter = 0;
     
     public TogglePIDShooter() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        if(isOn) {
-            new StopPIDShooter().start();
-            isOn = false;
-        } else {
-            new StartPIDShooter().start();
-            isOn = true;
-        }
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        shooter.setSpeed(Setpoints[counter++ % Setpoints.length]);
     }
 
     // Make this return true when this Command no longer needs to run execute()
