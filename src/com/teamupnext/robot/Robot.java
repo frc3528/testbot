@@ -88,4 +88,8 @@ public class Robot extends IterativeRobot {
         new SetToDefault().start();
     }
     
+    public void testInit() {
+        System.out.println("test init");
+    }
+            
 }
