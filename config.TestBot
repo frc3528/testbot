@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	logallrefupdates = true
+	bare = false
+[remote "GitHub"]
+        url = https://github.com/frc3528/testbot.git
+        fetch = +refs/heads/*:refs/remotes/GitHub/*
+[remote "GoogleCode"]
+        url = https://code.google.com/p/frc3528.testbot/
+        fetch = +refs/heads/*:refs/remotes/GoogleCode/*
+[remote "origin"]
+	url = https://code.google.com/p/frc3528.testbot/
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	pushurl = https://code.google.com/p/frc3528.testbot/
+	pushurl = https://github.com/frc3528/testbot.git
